@@ -2,9 +2,9 @@ package App::DBCritic::Policy::NoPrimaryKey;
 
 use strict;
 use utf8;
-use Modern::Perl;
+use Modern::Perl '2011';    ## no critic (Modules::ProhibitUseQuotedVersion)
 
-our $VERSION = '0.020';    # VERSION
+our $VERSION = '0.021';     # TRIAL VERSION
 use Moo;
 use Sub::Quote;
 use namespace::autoclean -also => qr{\A _}xms;
@@ -31,10 +31,10 @@ __END__
 
 =pod
 
-=for :stopwords Mark Gardner cpan testmatrix url annocpan anno bugtracker rt cpants
-kwalitee diff irc mailto metadata placeholders
+=encoding UTF-8
 
-=encoding utf8
+=for :stopwords Mark Gardner cpan testmatrix url annocpan anno bugtracker rt cpants
+kwalitee diff irc mailto metadata placeholders metacpan
 
 =head1 NAME
 
@@ -42,7 +42,7 @@ App::DBCritic::Policy::NoPrimaryKey - Check for DBIx::Class::Schema::ResultSourc
 
 =head1 VERSION
 
-version 0.020
+version 0.021
 
 =head1 SYNOPSIS
 
@@ -68,8 +68,6 @@ L<DBIx::Class::ResultSource|DBIx::Class::ResultSource> has zero primary columns.
 "Tables should have one or more columns defined as a primary key."
 
 =head2 applies_to
-
-This policy applies to L<ResultSource|DBIx::Class::ResultSource>s.
 
 =head1 METHODS
 
@@ -106,7 +104,7 @@ L<http://search.cpan.org/dist/App-DBCritic>
 
 AnnoCPAN
 
-The AnnoCPAN is a website that allows community annonations of Perl module documentation.
+The AnnoCPAN is a website that allows community annotations of Perl module documentation.
 
 L<http://annocpan.org/dist/App-DBCritic>
 
@@ -124,7 +122,7 @@ CPANTS
 
 The CPANTS is a website that analyzes the Kwalitee ( code metrics ) of a distribution.
 
-L<http://cpants.perl.org/dist/overview/App-DBCritic>
+L<http://cpants.cpanauthors.org/dist/App-DBCritic>
 
 =item *
 
@@ -138,7 +136,7 @@ L<http://www.cpantesters.org/distro/A/App-DBCritic>
 
 CPAN Testers Matrix
 
-The CPAN Testers Matrix is a website that provides a visual way to determine what Perls/platforms PASSed for a distribution.
+The CPAN Testers Matrix is a website that provides a visual overview of the test results for a distribution on various Perls/platforms.
 
 L<http://matrix.cpantesters.org/?dist=App-DBCritic>
 
@@ -174,7 +172,7 @@ Mark Gardner <mjgardner@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Mark Gardner.
+This software is copyright (c) 2014 by Mark Gardner.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

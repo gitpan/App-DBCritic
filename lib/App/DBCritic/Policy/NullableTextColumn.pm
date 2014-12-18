@@ -2,11 +2,12 @@ package App::DBCritic::Policy::NullableTextColumn;
 
 use strict;
 use utf8;
-use Modern::Perl;
+use Modern::Perl '2011';    ## no critic (Modules::ProhibitUseQuotedVersion)
 
-our $VERSION = '0.020';    # VERSION
+our $VERSION = '0.021';     # TRIAL VERSION
 use DBI ':sql_types';
 use English '-no_match_vars';
+use List::Util 1.33 'any';
 use Moo;
 use Sub::Quote;
 use namespace::autoclean -also => qr{\A _}xms;
@@ -38,8 +39,9 @@ sub violates {
 
     my %column = %{ $source->columns_info };
     return join "\n", map {"$ARG is a nullable text column."} grep {
-        uc( $column{$ARG}{data_type} // q{} ) ~~ @text_types
-            and $column{$ARG}{is_nullable}
+        my $col = $_;
+        any { uc( $column{$col}{data_type} // q{} ) eq $_ } @text_types
+            and $column{$col}{is_nullable};
     } keys %column;
 }
 
@@ -52,10 +54,10 @@ __END__
 
 =pod
 
-=for :stopwords Mark Gardner cpan testmatrix url annocpan anno bugtracker rt cpants
-kwalitee diff irc mailto metadata placeholders
+=encoding UTF-8
 
-=encoding utf8
+=for :stopwords Mark Gardner cpan testmatrix url annocpan anno bugtracker rt cpants
+kwalitee diff irc mailto metadata placeholders metacpan
 
 =head1 NAME
 
@@ -63,7 +65,7 @@ App::DBCritic::Policy::NullableTextColumn - Check for ResultSources with nullabl
 
 =head1 VERSION
 
-version 0.020
+version 0.021
 
 =head1 SYNOPSIS
 
@@ -167,7 +169,7 @@ L<http://search.cpan.org/dist/App-DBCritic>
 
 AnnoCPAN
 
-The AnnoCPAN is a website that allows community annonations of Perl module documentation.
+The AnnoCPAN is a website that allows community annotations of Perl module documentation.
 
 L<http://annocpan.org/dist/App-DBCritic>
 
@@ -185,7 +187,7 @@ CPANTS
 
 The CPANTS is a website that analyzes the Kwalitee ( code metrics ) of a distribution.
 
-L<http://cpants.perl.org/dist/overview/App-DBCritic>
+L<http://cpants.cpanauthors.org/dist/App-DBCritic>
 
 =item *
 
@@ -199,7 +201,7 @@ L<http://www.cpantesters.org/distro/A/App-DBCritic>
 
 CPAN Testers Matrix
 
-The CPAN Testers Matrix is a website that provides a visual way to determine what Perls/platforms PASSed for a distribution.
+The CPAN Testers Matrix is a website that provides a visual overview of the test results for a distribution on various Perls/platforms.
 
 L<http://matrix.cpantesters.org/?dist=App-DBCritic>
 
@@ -235,7 +237,7 @@ Mark Gardner <mjgardner@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Mark Gardner.
+This software is copyright (c) 2014 by Mark Gardner.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
